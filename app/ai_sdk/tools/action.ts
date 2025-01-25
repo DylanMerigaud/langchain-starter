@@ -1,12 +1,12 @@
 "use server";
 
-import { ChatOpenAI } from "@langchain/openai";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createStreamableValue } from "ai/rsc";
 import { z } from "zod";
 import { Runnable } from "@langchain/core/runnables";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { JsonOutputKeyToolsParser } from "@langchain/core/output_parsers/openai_tools";
+import { ChatMistralAI } from "@langchain/mistralai";
 
 const Weather = z
   .object({
@@ -35,8 +35,8 @@ export async function executeTool(
       ["human", "{input}"],
     ]);
 
-    const llm = new ChatOpenAI({
-      model: "gpt-4o-mini",
+    const llm = new ChatMistralAI({
+      model: "mistral-small-latest",
       temperature: 0,
     });
 
